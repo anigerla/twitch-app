@@ -1,4 +1,6 @@
 import streams from '../apis/streams';
+// import createBrowserHistory from '../history';
+
 import { 
     SIGN_IN, 
     SIGN_OUT, 
@@ -22,10 +24,15 @@ export const signOut = () => {
     };
 };
 
-export const createStream = formValues => async dispatch => {
-    const response = streams.post('/streams', formValues);
+export const createStream = formValues => async (dispatch, getState) => {
+    const { userId } = getState().auth;
+    const response = streams.post('/streams', { ...formValues, userId });
 
     dispatch({ type: CREATE_STREAM, payload: response.data });
+    // Include some programmatic navigation to the root route
+    // const history = createBrowserHistory;
+    // history.push('/');
+    //does not work, has been moved to onSubmit in CreateStream component
 };
 
 export const fetchStreams = () => async dispatch => {

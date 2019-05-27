@@ -2,6 +2,7 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { createStream } from '../../actions';
+import createBrowserHistory from '../../history';
 
 class StreamCreate extends React.Component {
     renderError({ error, touched }) {
@@ -29,6 +30,8 @@ class StreamCreate extends React.Component {
     onSubmit = formValues => {
         console.log(this.props.createStream)
         this.props.createStream(formValues);
+        const history = createBrowserHistory;
+        history.push('/');
     }
 
     render() {
@@ -44,7 +47,7 @@ class StreamCreate extends React.Component {
                     component={this.renderInput}
                     label="Enter description"
                 />
-                <button className="ui button primary">Click me</button>
+                <button className="ui button primary">Submit</button>
             </form>
         );
     }
